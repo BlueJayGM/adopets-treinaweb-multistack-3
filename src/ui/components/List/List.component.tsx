@@ -5,9 +5,10 @@ import { Description, Informations, List, ListItem, Name, Photo } from "./List.s
 
 interface ListContainerProps {
   pets: Pet[];
+  onSelect: (pet: Pet) => void;
 }
 
-export default function ListContainer({ pets }: ListContainerProps) {
+export default function ListContainer({ pets, onSelect }: ListContainerProps) {
 
   const maxLengthText = 200;
 
@@ -17,13 +18,13 @@ export default function ListContainer({ pets }: ListContainerProps) {
         {
           pets.map( (pet) => (
             <ListItem key={pet.id}>
-              <Photo src={pet.image_url}/>
+              <Photo src={pet.photo}/>
               <Informations>
                 <Name>{pet.name}</Name>
                 <Description>
                   { TextService.limitText(pet.description, maxLengthText) }
                 </Description>
-                <Button variant={'contained'} fullWidth >Adotar</Button>
+                <Button variant={'contained'} fullWidth onClick={() => onSelect(pet)} >Adotar</Button>
               </Informations>
             </ListItem>
           ))
